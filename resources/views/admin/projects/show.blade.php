@@ -13,8 +13,15 @@
     <div class="col-5"> <img src="{{ $project->cover_img }}" alt="{{$project->project_title}}" class="img-fluid"> </div>
     <div class="col-7 fs-5 es_justify">
       <h2 class="card-title es_title es_yellow mb-3">{{$project->project_title}}</h2>
-      <h4>Type: {{ $project->type->name }}</h4>
-      {{ $project->project_desc }}
+      <h4 class="mb-3">Type: {{ $project->type->name }}</h4>
+      {{ $project->project_desc }} <br>
+      <h5 class="mt-3">Technologies:
+        @foreach($project->technologies as $technology)
+        <span class="badge bg-warning">{{$technology->name}}</span>
+          @if(!$loop->last),
+          @endif
+        @endforeach  
+      </h5>
     </div>
   </div>
 </div>

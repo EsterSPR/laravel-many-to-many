@@ -55,6 +55,16 @@
 
                 <div class="form-group mb-3">
                     <label class="control-label mb-2">
+                        Project technologies
+                    </label><br>
+                        @foreach($technologies as $technology)
+                            <input type="checkbox" value="{{ $technology->id }}" name="technologies[]">
+                            <label class="form-check-label mb-2">{{$technology->name}}</label><br>
+                        @endforeach
+                </div>
+
+                <div class="form-group mb-3">
+                    <label class="control-label mb-2">
                         Project description
                     </label>
                     <textarea name="project_desc" id="project_desc" placeholder="Project description" value="{{old('project_desc') ?? $project->project_desc}}" class="w-100 es_yellowborder rounded p-2"></textarea>

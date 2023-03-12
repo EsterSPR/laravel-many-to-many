@@ -30,6 +30,7 @@ class UpdateProjectRequest extends FormRequest
             'slug' => ['required', Rule::unique('projects')->ignore($this->project), 'max:100'],
             'project_desc' => ['required', 'max:1000'],
             'type_id' => ['required', 'exists:types,id'],
+            'tags' => ['exists:tags,id']
         ];
     }
 

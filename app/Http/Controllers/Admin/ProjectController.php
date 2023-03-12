@@ -48,7 +48,17 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $form_data = $request->validated();
-        Project::create($form_data);
+
+        $slug = Project::generateSlug($request->title, '-');
+
+        $form_data['slug'] = $slug;
+        
+        $newProject = Project::create($form_data);
+
+        if($request->has('technologies')){
+            $newProject->technologies()->attach($request->technologies);
+        }
+
         return redirect()->route('admin.projects.index')->with('message', 'Nuovo progetto aggiunto correttamente.');
     }
 
@@ -73,8 +83,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -94,10 +105,10 @@ class ProjectController extends Controller
         
         $project->update($form_data);
 
+        if($request->has('technologies')){
+            $project->technologies()->sync($request->technologies);
+        }
 
-        // if($request->has('casts')){
-        //     $movie->casts()->sync($request->casts);
-        // }
         return redirect()->route('admin.projects.index');
     }
 
