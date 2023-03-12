@@ -13,11 +13,11 @@ class Technology extends Model
 
     protected $fillable = ['name', 'slug'];
 
-    // public function projects(){
-    //     return $this->hasMany(Project::class);
-    // }
-
     public static function generateSlug($name){
         return Str::slug($name, '-');
+    }
+
+    public function projects(){
+        return $this->belongsToMany(Project::class);
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Technology;
 
 use Illuminate\Http\Request;
 
@@ -34,7 +35,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
